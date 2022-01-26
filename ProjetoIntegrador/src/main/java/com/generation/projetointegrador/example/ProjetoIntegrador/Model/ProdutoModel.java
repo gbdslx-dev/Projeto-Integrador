@@ -15,11 +15,11 @@ public class ProdutoModel {
 				
 			@Id
 			@GeneratedValue (strategy = GenerationType.IDENTITY)
-			private Long id_produto;
+			private Long idProduto;
 			
 			@NotNull
 			@Size (min = 3, max = 30) 
-			private String nome_produto;
+			private String nomeProduto;
 			
 			@NotNull
 			@Size (min = 11, max = 22)
@@ -32,20 +32,20 @@ public class ProdutoModel {
 			@Size (min = 5, max = 2000)
 			private String urlImagem;
 
-			public Long getId_produto() {
-				return id_produto;
+			public Long getIdProduto() {
+				return idProduto;
 			}
 
-			public void setId_produto(Long id_produto) {
-				this.id_produto = id_produto;
+			public void setIdProduto(Long idProduto) {
+				this.idProduto = idProduto;
 			}
 
-			public String getNome_produto() {
-				return nome_produto;
+			public String getNomeProduto() {
+				return nomeProduto;
 			}
 
-			public void setNome_produto(String nome_produto) {
-				this.nome_produto = nome_produto;
+			public void setNomeProduto(String nomeProduto) {
+				this.nomeProduto = nomeProduto;
 			}
 
 			public Float getValor() {
@@ -71,4 +71,7 @@ public class ProdutoModel {
 			public void setUrlImagem(String urlImagem) {
 				this.urlImagem = urlImagem;
 			}
-}
+
+			
+
+	}
