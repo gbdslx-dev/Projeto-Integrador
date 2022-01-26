@@ -18,15 +18,14 @@ public class ProdutoModel {
 			private Long idProduto;
 			
 			@NotNull
-			@Size (min = 3, max = 30) 
+			@Size (min = 3, max = 50) 
 			private String nomeProduto;
 			
 			@NotNull
-			@Size (min = 11, max = 22)
 			private Float valor;
 			
 			@NotNull
-			@Size (min = 5, max = 10)
+			@Size (min = 5, max = 255)
 			private String descricao;
 			
 			@Size (min = 5, max = 2000)

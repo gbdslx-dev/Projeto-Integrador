@@ -3,6 +3,7 @@ package com.generation.projetointegrador.example.ProjetoIntegrador.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,23 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoRepository repository;
+	
+	@GetMapping
+	public ResponseEntity<List<ProdutoModel>> findAll() {
+		List<ProdutoModel> list = repository.findAll();
+		if (list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<ProdutoModel> findByIDProduto(@PathVariable long id) {
+		return repository.findById(id)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
 	
 	@GetMapping ("/nome/{nomeproduto}")
 	public ResponseEntity<List<ProdutoModel>> FindByNome (@PathVariable String nomeproduto) {
