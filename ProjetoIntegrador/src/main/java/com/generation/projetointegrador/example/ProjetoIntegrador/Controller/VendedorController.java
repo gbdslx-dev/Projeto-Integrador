@@ -37,7 +37,7 @@ public class VendedorController {
 	}
 	
 	
-	// MÉTODOS GETFINDBY E GETFINDALL
+	// MÉTODOS GETFINDBY / GETFINDALL
 	
 
 	@PostMapping
