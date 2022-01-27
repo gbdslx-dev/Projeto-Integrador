@@ -1,13 +1,19 @@
 package com.generation.projetointegrador.example.ProjetoIntegrador.Model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_vendedor")
@@ -20,12 +26,12 @@ public class VendedorModel {
 	@NotNull
 	@NotBlank
 	@Size(min = 4, max = 100)
-	private String nome_vendedor;
+	private String nomeVendedor;
 
 	@NotNull
 	@NotBlank
 	@Size(min = 5, max = 100)
-	private String email_contato;
+	private String emailContato;
 	
 	@NotNull
 	@NotBlank
@@ -35,7 +41,11 @@ public class VendedorModel {
 	@NotNull
 	@NotBlank
 	@Size(min = 8, max = 15)
-	private String tel_contato;
+	private String telContato;
+	
+	@OneToMany(mappedBy = "vendedor", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("vendedor")
+	private List<ProdutoModel> produtos;
 
 	public Long getId() {
 		return id;
@@ -45,20 +55,20 @@ public class VendedorModel {
 		this.id = id;
 	}
 
-	public String getNome_vendedor() {
-		return nome_vendedor;
+	public String getNomeVendedor() {
+		return nomeVendedor;
 	}
 
-	public void setNome_vendedor(String nome_vendedor) {
-		this.nome_vendedor = nome_vendedor;
+	public void setNomeVendedor(String nomeVendedor) {
+		this.nomeVendedor = nomeVendedor;
 	}
 
-	public String getEmail_contato() {
-		return email_contato;
+	public String getEmailContato() {
+		return emailContato;
 	}
 
-	public void setEmail_contato(String email_contato) {
-		this.email_contato = email_contato;
+	public void setEmailContato(String emailContato) {
+		this.emailContato = emailContato;
 	}
 
 	public String getSenha() {
@@ -69,11 +79,22 @@ public class VendedorModel {
 		this.senha = senha;
 	}
 
-	public String getTel_contato() {
-		return tel_contato;
+	public String getTelContato() {
+		return telContato;
 	}
 
-	public void setTel_contato(String tel_contato) {
-		this.tel_contato = tel_contato;
+	public void setTelContato(String telContato) {
+		this.telContato = telContato;
 	}
+
+	public List<ProdutoModel> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<ProdutoModel> produtos) {
+		this.produtos = produtos;
+	}
+
+	
+
 }
