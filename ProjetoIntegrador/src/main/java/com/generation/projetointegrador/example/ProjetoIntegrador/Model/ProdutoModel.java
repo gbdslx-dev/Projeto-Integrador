@@ -1,5 +1,7 @@
 package com.generation.projetointegrador.example.ProjetoIntegrador.Model;
 
+import java.util.Locale.Category;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,6 +40,11 @@ public class ProdutoModel {
 			@JoinColumn(name = "vendedor_id")
 			@JsonIgnoreProperties("produtos")
 			private VendedorModel vendedor;
+			
+			@ManyToOne
+			@JoinColumn(name = "categori_id")
+			@JsonIgnoreProperties("produtos")
+			private CategoriaModel categoria;	
 
 			public Long getIdProduto() {
 				return idProduto;
@@ -79,6 +86,20 @@ public class ProdutoModel {
 				this.urlImagem = urlImagem;
 			}
 
-			
+			public VendedorModel getVendedor() {
+				return vendedor;
+			}
+
+			public void setVendedor(VendedorModel vendedor) {
+				this.vendedor = vendedor;
+			}
+
+			public CategoriaModel getCategoria() {
+				return categoria;
+			}
+
+			public void setCategoria(CategoriaModel categoria) {
+				this.categoria = categoria;
+			}		
 
 	}
