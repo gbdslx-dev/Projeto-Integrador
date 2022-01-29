@@ -42,7 +42,7 @@ public class ProdutoModel {
 			private VendedorModel vendedor;
 			
 			@ManyToOne
-			@JoinColumn(name = "categori_id")
+			@JoinColumn(name = "categoria_id")
 			@JsonIgnoreProperties("produtos")
 			private CategoriaModel categoria;	
 
