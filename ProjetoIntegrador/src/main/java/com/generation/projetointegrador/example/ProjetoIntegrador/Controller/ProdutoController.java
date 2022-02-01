@@ -49,7 +49,7 @@ public class ProdutoController {
 		
 	}
 	@PostMapping
-	public ResponseEntity<ProdutoModel> putProdutoModel(@RequestBody ProdutoModel nomeProduto) {
+	public ResponseEntity<ProdutoModel> postProduto(@RequestBody ProdutoModel nomeProduto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(nomeProduto));
 	}
 	
@@ -64,4 +64,3 @@ public class ProdutoController {
 	}
 	
 }
-

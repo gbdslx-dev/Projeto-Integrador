@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,21 +47,27 @@ public class CategoriaModel {
 	public void setProdutos(List<ProdutoModel> produtos) {
 		this.produtos = produtos;
 	}
+	@Enumerated(EnumType.STRING)
 	public PrioridadeEnum getPrioridade() {
 		return prioridade;
 	}
+	@Enumerated(EnumType.STRING)
 	public void setPrioridade(PrioridadeEnum prioridade) {
 		this.prioridade = prioridade;
 	}
+	@Enumerated(EnumType.STRING)
 	public RegiaoEnum getRegiao() {
 		return regiao;
 	}
+	@Enumerated(EnumType.STRING)
 	public void setRegiao(RegiaoEnum regiao) {
 		this.regiao = regiao;
 	}
+	@Enumerated(EnumType.STRING)
 	public TipoEnum getTipo() {
 		return tipo;
 	}
+	@Enumerated(EnumType.STRING)
 	public void setTipo(TipoEnum tipo) {
 		this.tipo = tipo;
 	}

@@ -1,7 +1,5 @@
 package com.generation.projetointegrador.example.ProjetoIntegrador.Model;
 
-import java.util.Locale.Category;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
