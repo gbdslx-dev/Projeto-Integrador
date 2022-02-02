@@ -1,11 +1,14 @@
 package com.generation.projetointegrador.example.ProjetoIntegrador.Service;
 
+import java.nio.charset.Charset;
+import org.apache.commons.codec.binary.Base64;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UserLogin;
 import com.generation.projetointegrador.example.ProjetoIntegrador.Model.VendedorModel;
 import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.VendedorRepository;
 
@@ -28,9 +31,33 @@ public class VendedorService {
 		
 		} else {retorno = Optional.empty();}
 
-		return retorno;
-		
+		return retorno;		
 	}
+	
+	public Optional<UserLogin> Logar(Optional<UserLogin> user) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		Optional<VendedorModel> vendedorEmail = repository.findByEmailContato(user.get().getEmail());
+		
+		if (vendedorEmail.isPresent()) {
+			if(encoder.matches(user.get().getSenha(), vendedorEmail.get().getSenha())) {
+				
+				String auth = user.get().getEmail() + ":" + user.get().getSenha();
+				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+				
+				String authHeader = "Basic " + new String(encodedAuth);
+				
+				user.get().setToken(authHeader);
+				
+				user.get().setNome(vendedorEmail.get().getNomeVendedor());
+				
+				return user;
+			}
+		}
+		
+		return null;
+	}
+	
 }
 
 
