@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.generation.projetointegrador.example.ProjetoIntegrador.Model.VendedorModel;
 import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.VendedorRepository;
 
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	

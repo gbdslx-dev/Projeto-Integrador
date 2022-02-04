@@ -33,9 +33,21 @@ public class VendedorController {
 	@Autowired
 	private VendedorService service;
 		
+	@GetMapping("/email/{email}")
+	public ResponseEntity<VendedorModel> GetByEmail(@PathVariable String email){
+		return repository.findByEmailContato(email)
+				.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());	
+	}
 	
-	// MÉTODOS GET FIND BY ID / GET FIND ALL
-	
+	@GetMapping("/nome/{nomevendedor}")
+	public ResponseEntity<List<VendedorModel>> findByNome(@PathVariable String nomevendedor){
+		List<VendedorModel> list = repository.findAllByNomeVendedorContainingIgnoreCase(nomevendedor);
+		if (list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+	}
 	
 	
 	@PostMapping("/logar")
@@ -54,15 +66,6 @@ public class VendedorController {
 				});
 	}
 	
-	@GetMapping("/nome/{nomevendedor}")
-	public ResponseEntity<List<VendedorModel>> findByNome(@PathVariable String nomevendedor){
-		List<VendedorModel> list = repository.findAllByNomeVendedorContainingIgnoreCase(nomevendedor);
-		if (list.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(list);
-		}
-	}
 	
 	@PutMapping
 	public ResponseEntity<VendedorModel> putVendedor(@RequestBody VendedorModel nomeVendedor) {
