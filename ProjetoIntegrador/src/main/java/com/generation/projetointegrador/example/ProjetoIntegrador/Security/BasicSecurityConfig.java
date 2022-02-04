@@ -20,6 +20,8 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(UserDetailsService);
+		auth.inMemoryAuthentication().withUser("root").password(PasswordEncoder().encode("root"))
+		.authorities("ROLE_ADMIN");
 	}
 
 	@Bean
