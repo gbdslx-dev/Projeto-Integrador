@@ -36,8 +36,7 @@ public class UsuarioModel {
 	private String emailContato;
 	
 	@NotNull
-	@NotBlank
-	@Size(min = 8, max = 25)
+	@Size(min = 6, max = 50)
 	private String senha;	
 	
 	@NotNull
