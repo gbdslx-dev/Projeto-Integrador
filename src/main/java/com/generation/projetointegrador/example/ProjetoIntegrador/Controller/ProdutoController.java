@@ -19,7 +19,7 @@ import com.generation.projetointegrador.example.ProjetoIntegrador.Model.ProdutoM
 import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.ProdutoRepository;
 
 @RestController
-@CrossOrigin ("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping ("/produto")
 public class ProdutoController {
 

@@ -23,7 +23,7 @@ import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.Usu
 import com.generation.projetointegrador.example.ProjetoIntegrador.Service.UsuarioService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/usuario")
 public class UsuarioController {
 

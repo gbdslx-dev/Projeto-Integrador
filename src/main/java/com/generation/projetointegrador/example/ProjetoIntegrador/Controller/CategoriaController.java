@@ -22,7 +22,7 @@ import com.generation.projetointegrador.example.ProjetoIntegrador.Util.RegiaoEnu
 import com.generation.projetointegrador.example.ProjetoIntegrador.Util.TipoEnum;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/categoria")
 public class CategoriaController {
 	
