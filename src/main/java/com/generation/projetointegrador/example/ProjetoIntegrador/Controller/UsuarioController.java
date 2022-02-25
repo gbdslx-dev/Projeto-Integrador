@@ -24,7 +24,7 @@ import com.generation.projetointegrador.example.ProjetoIntegrador.Service.Usuari
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/vendedor")
+@RequestMapping("/usuario")
 public class UsuarioController {
 
 	@Autowired

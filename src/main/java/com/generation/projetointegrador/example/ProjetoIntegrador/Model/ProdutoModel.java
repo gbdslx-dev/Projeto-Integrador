@@ -35,9 +35,9 @@ public class ProdutoModel {
 			private String urlImagem;
 			
 			@ManyToOne
-			@JoinColumn(name = "vendedor_id")
+			@JoinColumn(name = "usuario_id")
 			@JsonIgnoreProperties("produtos")
-			private UsuarioModel vendedor;
+			private UsuarioModel usuario;
 			
 			@ManyToOne
 			@JoinColumn(name = "categoria_id")
@@ -84,12 +84,12 @@ public class ProdutoModel {
 				this.urlImagem = urlImagem;
 			}
 
-			public UsuarioModel getVendedor() {
-				return vendedor;
+			public UsuarioModel getUsuario() {
+				return usuario;
 			}
 
-			public void setVendedor(UsuarioModel vendedor) {
-				this.vendedor = vendedor;
+			public void setUsuario(UsuarioModel usuario) {
+				this.usuario = usuario;
 			}
 
 			public CategoriaModel getCategoria() {

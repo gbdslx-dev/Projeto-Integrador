@@ -49,8 +49,8 @@ public class UsuarioModel {
 	
 	private String foto;
 	
-	@OneToMany(mappedBy = "vendedor", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("vendedor")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
 	private List<ProdutoModel> produtos;
 
 	public Long getId() {
