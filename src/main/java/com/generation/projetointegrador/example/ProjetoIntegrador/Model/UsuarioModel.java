@@ -17,8 +17,8 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "tb_vendedor")
-public class VendedorModel {
+@Table(name = "tb_usuario")
+public class UsuarioModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class VendedorModel {
 	@NotNull
 	@NotBlank
 	@Size(min = 4, max = 100)
-	private String nomeVendedor;
+	private String nome;
 
 	@NotNull
 	@NotBlank
@@ -45,6 +45,10 @@ public class VendedorModel {
 	@Size(min = 8, max = 15)
 	private String telContato;
 	
+	private String tipo;
+	
+	private String foto;
+	
 	@OneToMany(mappedBy = "vendedor", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("vendedor")
 	private List<ProdutoModel> produtos;
@@ -57,12 +61,12 @@ public class VendedorModel {
 		this.id = id;
 	}
 
-	public String getNomeVendedor() {
-		return nomeVendedor;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeVendedor(String nomeVendedor) {
-		this.nomeVendedor = nomeVendedor;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmailContato() {
@@ -97,6 +101,21 @@ public class VendedorModel {
 		this.produtos = produtos;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	
 
 }

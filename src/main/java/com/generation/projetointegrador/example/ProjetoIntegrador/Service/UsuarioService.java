@@ -9,25 +9,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UserLogin;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Model.VendedorModel;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.VendedorRepository;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UsuarioModel;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.UsuarioRepository;
 
 @Service
-public class VendedorService {
+public class UsuarioService {
 	
 	@Autowired
-	private VendedorRepository repository;
+	private UsuarioRepository repository;
 	
-	public Optional<VendedorModel> CadastrarVendedor(VendedorModel vendedor){
+	public Optional<UsuarioModel> CadastrarUsuario(UsuarioModel Usuario){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();	
-		Optional<VendedorModel> retorno;
-		Optional<VendedorModel> vendedorUsuario = repository.findByEmailContato(vendedor.getEmailContato());
+		Optional<UsuarioModel> retorno;
+		Optional<UsuarioModel> UsuarioVerifica = repository.findByEmailContato(Usuario.getEmailContato());
 		
-		if (vendedorUsuario.isEmpty()) {
-			String senhaEncoder = encoder.encode(vendedor.getSenha());
-			vendedor.setSenha(senhaEncoder);
-			repository.save(vendedor);
-			retorno = Optional.of(vendedor);
+		if (UsuarioVerifica.isEmpty()) {
+			String senhaEncoder = encoder.encode(Usuario.getSenha());
+			Usuario.setSenha(senhaEncoder);
+			repository.save(Usuario);
+			retorno = Optional.of(Usuario);
 		
 		} else {retorno = Optional.empty();}
 
@@ -37,10 +37,10 @@ public class VendedorService {
 	public Optional<UserLogin> Logar(Optional<UserLogin> user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
-		Optional<VendedorModel> vendedorEmail = repository.findByEmailContato(user.get().getEmail());
+		Optional<UsuarioModel> usuarioemail = repository.findByEmailContato(user.get().getEmail());
 		
-		if (vendedorEmail.isPresent()) {
-			if(encoder.matches(user.get().getSenha(), vendedorEmail.get().getSenha())) {
+		if (usuarioemail.isPresent()) {
+			if(encoder.matches(user.get().getSenha(), usuarioemail.get().getSenha())) {
 				
 				String auth = user.get().getEmail() + ":" + user.get().getSenha();
 				byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
@@ -49,7 +49,11 @@ public class VendedorService {
 				
 				user.get().setToken(authHeader);
 				
-				user.get().setNome(vendedorEmail.get().getNomeVendedor());
+				user.get().setId(usuarioemail.get().getId());				
+				user.get().setNome(usuarioemail.get().getNome());
+				user.get().setTipo(usuarioemail.get().getTipo());
+				user.get().setFoto(usuarioemail.get().getFoto());
+				
 				
 				return user;
 			}

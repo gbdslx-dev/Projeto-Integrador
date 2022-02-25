@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.generation.projetointegrador.example.ProjetoIntegrador.Model.VendedorModel;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UsuarioModel;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -14,7 +14,7 @@ public class UserDetailsImpl implements UserDetails {
 	private String userName;
 	private String password;
 	
-	public UserDetailsImpl (VendedorModel vendedor)
+	public UserDetailsImpl (UsuarioModel vendedor)
 	{
 		this.userName = vendedor.getEmailContato();
 		this.password = vendedor.getSenha();

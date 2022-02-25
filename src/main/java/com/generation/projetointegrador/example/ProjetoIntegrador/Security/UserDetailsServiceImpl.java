@@ -8,20 +8,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.generation.projetointegrador.example.ProjetoIntegrador.Model.VendedorModel;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.VendedorRepository;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UsuarioModel;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.UsuarioRepository;
 
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
-	private  VendedorRepository repository;
+	private  UsuarioRepository repository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Optional<VendedorModel> user = repository.findByEmailContato(username);
+		Optional<UsuarioModel> user = repository.findByEmailContato(username);
 		
 		user.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 		

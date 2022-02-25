@@ -18,30 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UserLogin;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Model.VendedorModel;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.VendedorRepository;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Service.VendedorService;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Model.UsuarioModel;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.UsuarioRepository;
+import com.generation.projetointegrador.example.ProjetoIntegrador.Service.UsuarioService;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/vendedor")
-public class VendedorController {
+public class UsuarioController {
 
 	@Autowired
-	private VendedorRepository repository;
+	private UsuarioRepository repository;
 	
 	@Autowired
-	private VendedorService service;
+	private UsuarioService service;
 		
 	@GetMapping("/email/{email}")
-	public ResponseEntity<VendedorModel> GetByEmail(@PathVariable String email){
+	public ResponseEntity<UsuarioModel> GetByEmail(@PathVariable String email){
 		return repository.findByEmailContato(email)
 				.map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());	
 	}
 	
-	@GetMapping("/nome/{nomevendedor}")
-	public ResponseEntity<List<VendedorModel>> findByNome(@PathVariable String nomevendedor){
-		List<VendedorModel> list = repository.findAllByNomeVendedorContainingIgnoreCase(nomevendedor);
+	@GetMapping("/nome/{nome}")
+	public ResponseEntity<List<UsuarioModel>> findByNome(@PathVariable String nome){
+		List<UsuarioModel> list = repository.findAllByNomeContainingIgnoreCase(nome);
 		if (list.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} else {
@@ -58,8 +58,8 @@ public class VendedorController {
 	}
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<VendedorModel> Post(@RequestBody VendedorModel user){
-		return service.CadastrarVendedor(user)
+	public ResponseEntity<UsuarioModel> Post(@RequestBody UsuarioModel user){
+		return service.CadastrarUsuario(user)
 				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
 				.orElseGet(() -> { 
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Vendedor já cadastrado!");
@@ -68,8 +68,8 @@ public class VendedorController {
 	
 	
 	@PutMapping
-	public ResponseEntity<VendedorModel> putVendedor(@RequestBody VendedorModel nomeVendedor) {
-		return ResponseEntity.ok(repository.save(nomeVendedor));
+	public ResponseEntity<UsuarioModel> putVendedor(@RequestBody UsuarioModel nome) {
+		return ResponseEntity.ok(repository.save(nome));
 	}
 
 	@DeleteMapping("{id}")
