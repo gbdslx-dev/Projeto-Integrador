@@ -33,6 +33,16 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 		
+	@GetMapping
+	public ResponseEntity<List<UsuarioModel>> findAll() {
+		List<UsuarioModel> list = repository.findAll();
+		if (list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}
+	}
+
 	@GetMapping("/email/{email}")
 	public ResponseEntity<UsuarioModel> GetByEmail(@PathVariable String email){
 		return repository.findByEmailContato(email)
@@ -68,12 +78,12 @@ public class UsuarioController {
 	
 	
 	@PutMapping
-	public ResponseEntity<UsuarioModel> putVendedor(@RequestBody UsuarioModel nome) {
+	public ResponseEntity<UsuarioModel> putUsuario(@RequestBody UsuarioModel nome) {
 		return ResponseEntity.ok(repository.save(nome));
 	}
 
 	@DeleteMapping("{id}")
-	public void deleteVendedor(@PathVariable long id) {
+	public void deleteUsuario(@PathVariable long id) {
 		repository.deleteById(id);
 	}
 

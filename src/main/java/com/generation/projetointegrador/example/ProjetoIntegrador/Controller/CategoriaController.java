@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.projetointegrador.example.ProjetoIntegrador.Model.CategoriaModel;
 import com.generation.projetointegrador.example.ProjetoIntegrador.Repository.CategoriaRepository;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Util.PrioridadeEnum;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Util.RegiaoEnum;
-import com.generation.projetointegrador.example.ProjetoIntegrador.Util.TipoEnum;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -31,8 +28,8 @@ public class CategoriaController {
 	
 	@SuppressWarnings("hiding")
 	@GetMapping
-	public <CategoriaModel> ResponseEntity<List<com.generation.projetointegrador.example.ProjetoIntegrador.Model.CategoriaModel>> findAll(){
-		List<com.generation.projetointegrador.example.ProjetoIntegrador.Model.CategoriaModel> list = repository.findAll();
+	public ResponseEntity<List<CategoriaModel>> findAll() {
+		List<CategoriaModel> list = repository.findAll();
 		if(list.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		} else {
@@ -48,17 +45,32 @@ public class CategoriaController {
 	}
 	
 	@GetMapping("/tipo/{tipo}")
-	public ResponseEntity<List<CategoriaModel>> findByTipo(@PathVariable TipoEnum tipo){
-		return ResponseEntity.ok(repository.findAllByTipo(tipo));
+	public ResponseEntity<List<CategoriaModel>> findByTipo(@PathVariable String tipo){
+		List<CategoriaModel> list = repository.findAllByTipo(tipo);
+		if(list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}	
 	}
 	
 	@GetMapping("/regiao/{regiao}")
-	public ResponseEntity<List<CategoriaModel>> findByRegiao(@PathVariable RegiaoEnum regiao){
-		return ResponseEntity.ok(repository.findAllByRegiao(regiao));
+	public ResponseEntity<List<CategoriaModel>> findByRegiao(@PathVariable String regiao){
+		List<CategoriaModel> list = repository.findAllByRegiao(regiao);
+		if(list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}	
 	}
 	@GetMapping("/prioridade/{prioridade}")
-	public ResponseEntity<List<CategoriaModel>> findByPrioridade(@PathVariable PrioridadeEnum prioridade){
-		return ResponseEntity.ok(repository.findAllByPrioridade(prioridade));
+	public ResponseEntity<List<CategoriaModel>> findByPrioridade(@PathVariable String prioridade){
+		List<CategoriaModel> list = repository.findAllByPrioridade(prioridade);
+		if(list.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}	
 	}
 	
 	@PostMapping
@@ -71,7 +83,7 @@ public class CategoriaController {
 		return ResponseEntity.ok(repository.save(categoria));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("{id}")
 	public void deleteCategoria(@PathVariable long id) {
 		repository.deleteById(id);
 	}
