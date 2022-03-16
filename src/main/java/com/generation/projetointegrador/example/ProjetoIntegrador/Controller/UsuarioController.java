@@ -42,6 +42,13 @@ public class UsuarioController {
 			return ResponseEntity.status(HttpStatus.OK).body(list);
 		}
 	}
+	
+	@GetMapping ("/{id}")
+	public ResponseEntity<UsuarioModel> findByIDUsuario(@PathVariable long id){
+		return repository.findById(id)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
 
 	@GetMapping("/email/{email}")
 	public ResponseEntity<UsuarioModel> GetByEmail(@PathVariable String email){
