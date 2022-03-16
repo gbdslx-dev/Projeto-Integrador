@@ -19,12 +19,12 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	public Optional<UsuarioModel> CadastrarUsuario(UsuarioModel Usuario){
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();	
+		//BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();	
 		Optional<UsuarioModel> retorno;
 		Optional<UsuarioModel> UsuarioVerifica = repository.findByEmailContato(Usuario.getEmailContato());
 		
 		if (UsuarioVerifica.isEmpty()) {
-			String senhaEncoder = encoder.encode(Usuario.getSenha());
+			String senhaEncoder = criptografarSenha(Usuario.getSenha());
 			Usuario.setSenha(senhaEncoder);
 			repository.save(Usuario);
 			retorno = Optional.of(Usuario);
@@ -32,6 +32,38 @@ public class UsuarioService {
 		} else {retorno = Optional.empty();}
 
 		return retorno;		
+	}
+	
+	public String criptografarSenha(String senha) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder.encode(senha);
+	}
+	
+	private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		return encoder.matches(senhaDigitada, senhaBanco);
+
+	}
+	
+	public Optional<UsuarioModel> AtualizarUsuario(UsuarioModel Usuario){
+		Optional<UsuarioModel> UsuarioVerifica = repository.findById(Usuario.getId());
+		if(UsuarioVerifica.isPresent()) {
+			if(compararSenhas(Usuario.getSenha(), UsuarioVerifica.get().getSenha())) {
+				UsuarioVerifica.get().setEmailContato(Usuario.getEmailContato());
+				UsuarioVerifica.get().setFoto(Usuario.getFoto());
+				UsuarioVerifica.get().setNome(Usuario.getNome());
+				UsuarioVerifica.get().setProdutos(Usuario.getProdutos());
+				UsuarioVerifica.get().setTelContato(Usuario.getTelContato());
+				UsuarioVerifica.get().setTipo(Usuario.getTipo());
+				
+				repository.save(UsuarioVerifica.get());
+				return UsuarioVerifica;
+			}
+		}
+		
+		return Optional.empty();
 	}
 	
 	public Optional<UserLogin> Logar(Optional<UserLogin> user) {

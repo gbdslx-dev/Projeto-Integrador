@@ -78,8 +78,12 @@ public class UsuarioController {
 	
 	
 	@PutMapping
-	public ResponseEntity<UsuarioModel> putUsuario(@RequestBody UsuarioModel nome) {
-		return ResponseEntity.ok(repository.save(nome));
+	public ResponseEntity<UsuarioModel> putUsuario(@RequestBody UsuarioModel user) {
+		return service.AtualizarUsuario(user)
+				.map(resp -> ResponseEntity.status(HttpStatus.CREATED).body(resp))
+				.orElseGet(() -> { 
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados incorretos!");
+				});
 	}
 
 	@DeleteMapping("{id}")
